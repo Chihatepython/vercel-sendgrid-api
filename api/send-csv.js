@@ -1,10 +1,8 @@
-// api/send-csv.js
 import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
-  // === 允许跨域 CORS ===
   const origin = req.headers.origin || "*";
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Vary", "Origin");
@@ -22,7 +20,10 @@ export default async function handler(req, res) {
 
     const msg = {
       to,
-      from: process.env.SENDGRID_FROM || "Nutrition Tracker <no-reply@yourdomain.com>",
+      from: {
+        email: process.env.SENDGRID_FROM,
+        name: "Nutrition Tracker",
+      },
       subject: subject || "Your Nutrition Log",
       text: text || "Hi! Here’s your nutrition log CSV.",
       attachments: [
