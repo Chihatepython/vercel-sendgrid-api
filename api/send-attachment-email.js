@@ -61,7 +61,7 @@ export default async function handler(req, res) {
 
     const result = await resend.emails.send({
       // 本地/测试环境可用 Resend 默认地址；生产建议换成你验证过的域名地址
-      from: 'onboarding@resend.dev',
+      from: 'Nutrition Tracker <no-reply@my-nutrition.online>',
       to,
       subject,
       html,
